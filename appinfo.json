@@ -1,0 +1,34 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "yuri@galanter.net",
+    "longName": "Vortex",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/vortex_icon.png",
+                "menuIcon": true,
+                "name": "MENU",
+                "type": "png"
+            },
+            {
+                "file": "data/vortex64.png",
+                "name": "ANIMATION",
+                "type": "raw"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Vortex",
+    "targetPlatforms": [
+        "basalt"
+    ],
+    "uuid": "68348e93-ee7c-4a1d-a6bd-1f83a44e981c",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
