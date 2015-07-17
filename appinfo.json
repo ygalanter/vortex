@@ -1,13 +1,97 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_DISABLE_VORTEX_ANIMATION": 6,
+        "KEY_SHOW_BATTERY": 2,
+        "KEY_SHOW_BLUETOOTH": 1,
+        "KEY_SHOW_DATE": 3,
+        "KEY_SHOW_DIGITAL_TIME": 0,
+        "KEY_SHOW_DOW": 4,
+        "KEY_SHOW_SECONDS": 5
+    },
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "yuri@galanter.net",
     "longName": "Vortex",
     "projectType": "native",
     "resources": {
         "media": [
+            {
+                "file": "images/bluetooth-24-disconnected.png",
+                "name": "BLUETOOTH_D",
+                "type": "png"
+            },
+            {
+                "file": "images/bluetooth-24-connected.png",
+                "name": "BLUETOOTH_C",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_100.png",
+                "name": "BATTERY_D_100",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_90.png",
+                "name": "BATTERY_D_90",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_80.png",
+                "name": "BATTERY_D_80",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_70.png",
+                "name": "BATTERY_D_70",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_60.png",
+                "name": "BATTERY_D_60",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_50.png",
+                "name": "BATTERY_D_50",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_40.png",
+                "name": "BATTERY_D_40",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_30.png",
+                "name": "BATTERY_D_30",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_20.png",
+                "name": "BATTERY_D_20",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_10.png",
+                "name": "BATTERY_D_10",
+                "type": "png"
+            },
+            {
+                "file": "images/battery_d_0.png",
+                "name": "BATTERY_D_0",
+                "type": "png"
+            },
+            {
+                "file": "fonts/MAKISUPA.TTF",
+                "name": "MAKISUPA_18",
+                "type": "font"
+            },
+            {
+                "characterRegex": "[0-9amp:]",
+                "file": "fonts/MAKISUPA.TTF",
+                "name": "MAKISUPA_30",
+                "type": "font"
+            },
             {
                 "file": "images/vortex_icon.png",
                 "menuIcon": true,
@@ -27,7 +111,7 @@
         "basalt"
     ],
     "uuid": "68348e93-ee7c-4a1d-a6bd-1f83a44e981c",
-    "versionLabel": "1.0",
+    "versionLabel": "1.2",
     "watchapp": {
         "watchface": true
     }
