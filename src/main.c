@@ -1,20 +1,22 @@
 #include <pebble.h>
 #include "main.h"  
 
+
 static Window *s_main_window;
 
 // for battery & bt
 static GBitmap *battery_sprite = NULL, *bluetooth_sprite = NULL;
 
 
+
 // for apng animation
 #ifdef PBL_COLOR
-  static GBitmap *s_bitmap = NULL;
-  static BitmapLayer *s_bitmap_layer;
   static GBitmapSequence *s_sequence = NULL;
-  int frame_no;    
-  #define NO_OF_FRAMES 38 
 #endif    
+static BitmapLayer *s_bitmap_layer;
+static GBitmap *s_bitmap = NULL;
+int frame_no;    
+#define NO_OF_FRAMES 38   
     
 // time and date holders
 GFont makisupa_big, makisupa_small;
@@ -135,12 +137,7 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   
   GRect bounds = layer_get_bounds(layer);
   GPoint center = grect_center_point(&bounds);
-  
-  #ifndef PBL_COLOR
-    graphics_context_set_fill_color(ctx, GColorWhite); graphics_fill_circle(ctx, center, 53);
-    graphics_context_set_fill_color(ctx, GColorBlack); graphics_fill_circle(ctx, center, 50);
-  #endif
-
+ 
   int32_t hour_angle = (TRIG_MAX_ANGLE * (((t->tm_hour % 12) * 6) + (t->tm_min / 10))) / (12 * 6);
   int32_t minute_angle = TRIG_MAX_ANGLE * t->tm_min / 60;
   int32_t second_angle = TRIG_MAX_ANGLE * t->tm_sec / 60;
@@ -233,7 +230,7 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   }
 }
 
-// function to handle animation timer
+// **************** function to handle animation timer (On Basalt)
 #ifdef PBL_COLOR
 
   static void timer_handler(void *context) {
@@ -257,11 +254,48 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
 
 // initiating APNG animation sequence
 static void load_sequence() {
-   
   // Begin animation
   layer_set_hidden(back_layer, true); // hiding additional info for duration of animation
   is_vortex_animating = true;
   frame_no = 1;
+  app_timer_register(1, timer_handler, NULL);
+}
+
+// **************** function to handle animation timer (On Basalt)
+#else
+  
+static void timer_handler(void *context) {
+  uint32_t next_delay = 80;   
+  // Advance to the next frame in array
+  if(frame_no < NO_OF_FRAMES) {
+    
+    if (s_bitmap != NULL) {
+      gbitmap_destroy(s_bitmap);
+      s_bitmap = NULL;
+    }
+    
+    s_bitmap = gbitmap_create_with_resource(vortex_aplite_res[frame_no]);
+    
+    bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap);
+    layer_mark_dirty(bitmap_layer_get_layer(s_bitmap_layer));
+
+    // Timer for that delay
+    frame_no++;
+    app_timer_register(next_delay, timer_handler, NULL);
+  } else {
+    layer_set_hidden(back_layer, false); // when animation sequence ends - restore visibility of the info layer
+    is_vortex_animating = false;
+    frame_no = 0;
+  }
+}
+
+// initiating APNG animation sequence
+static void load_sequence() {
+   
+  // Begin animation
+  layer_set_hidden(back_layer, true); // hiding additional info for duration of animation
+  is_vortex_animating = true;
+  frame_no = 0;
   app_timer_register(1, timer_handler, NULL);
 }
 
@@ -272,15 +306,12 @@ static void load_sequence() {
 static void time_timer_tick(struct tm *tick_time, TimeUnits units_changed) {
   
   if (units_changed & MINUTE_UNIT) {  // if minute changed - display animation
-    #ifdef PBL_PLATFORM_BASALT
+    
     if (flag_disable_vortex_animation == 0) { // if enabled - load animation
       load_sequence();  
     } else {
       layer_mark_dirty(back_layer); // otherwise update time layer
     }
-    #else
-      layer_mark_dirty(back_layer); // on aplite just update time layer
-    #endif
   }
   else if ((units_changed & SECOND_UNIT)) { // if second changed - update layer to display new second position
     if (flag_show_seconds == 1) {
@@ -294,16 +325,12 @@ static void time_timer_tick(struct tm *tick_time, TimeUnits units_changed) {
 static void main_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
 
-  #ifdef PBL_COLOR
-    s_bitmap_layer = bitmap_layer_create(GRect(11, 23, 123, 123));
-    layer_add_child(window_layer, bitmap_layer_get_layer(s_bitmap_layer));
-  #endif
+  s_bitmap_layer = bitmap_layer_create(GRect(11, 23, 123, 123));
+  layer_add_child(window_layer, bitmap_layer_get_layer(s_bitmap_layer));
   
   // init hands
   back_layer = layer_create(GRect(0, 0, 144, 168));
-  #ifdef PBL_COLOR
-    layer_set_hidden(back_layer, true); // initialy hide it - it will appear after initial animation
-  #endif
+  layer_set_hidden(back_layer, true); // initialy hide it - it will appear after initial animation
   layer_set_update_proc(back_layer, back_update_proc);
   layer_add_child(window_layer, back_layer);
   
@@ -319,9 +346,10 @@ static void main_window_load(Window *window) {
     // preparing vortex animation resources
     s_sequence = gbitmap_sequence_create_with_resource(RESOURCE_ID_ANIMATION);
     s_bitmap = gbitmap_create_blank(gbitmap_sequence_get_bitmap_size(s_sequence), GBitmapFormat8Bit);
-    
-    load_sequence();  //showing initial animation
-  #endif 
+  #endif     
+  
+  load_sequence();  //showing initial animation
+
 
 }
 
@@ -334,14 +362,14 @@ static void main_window_unload(Window *window) {
       gbitmap_sequence_destroy(s_sequence);
       s_sequence = NULL;
     }
-    if(s_bitmap) {
-      gbitmap_destroy(s_bitmap);
-      s_bitmap = NULL;
-    }
+ #endif
   
-    bitmap_layer_destroy(s_bitmap_layer);
-  #endif
-  
+ if(s_bitmap) {
+   gbitmap_destroy(s_bitmap);
+   s_bitmap = NULL;
+ }
+ bitmap_layer_destroy(s_bitmap_layer);
+   
   // destroying battery & bluetooth
   if (battery_sprite) {
      gbitmap_destroy(battery_sprite);
