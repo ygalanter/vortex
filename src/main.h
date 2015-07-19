@@ -1,7 +1,7 @@
 #include <pebble.h>
 
 // image resources for discharging battery
-const int battery_c_res[] = {
+const int battery_d_res[] = {
   RESOURCE_ID_BATTERY_D_0,
   RESOURCE_ID_BATTERY_D_10,
   RESOURCE_ID_BATTERY_D_20,
@@ -14,6 +14,23 @@ const int battery_c_res[] = {
   RESOURCE_ID_BATTERY_D_90,
   RESOURCE_ID_BATTERY_D_100,
 };
+
+// image resources for scharging battery
+const int battery_c_res[] = {
+  RESOURCE_ID_BATTERY_C_0,
+  RESOURCE_ID_BATTERY_C_10,
+  RESOURCE_ID_BATTERY_C_20,
+  RESOURCE_ID_BATTERY_C_30,
+  RESOURCE_ID_BATTERY_C_40,
+  RESOURCE_ID_BATTERY_C_50,
+  RESOURCE_ID_BATTERY_C_60,
+  RESOURCE_ID_BATTERY_C_70,
+  RESOURCE_ID_BATTERY_C_80,
+  RESOURCE_ID_BATTERY_C_90,
+  RESOURCE_ID_BATTERY_C_100,
+};
+
+
 
 // flags
 #define KEY_SHOW_DIGITAL_TIME 0

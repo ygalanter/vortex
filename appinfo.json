@@ -17,68 +17,128 @@
     "resources": {
         "media": [
             {
-                "file": "images/bluetooth-24-disconnected.png",
+                "file": "images/bw_vortex_icon.png",
+                "name": "MENU",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_bluetooth-24-disconnected.png",
                 "name": "BLUETOOTH_D",
                 "type": "png"
             },
             {
-                "file": "images/bluetooth-24-connected.png",
+                "file": "images/bw_bluetooth-24-connected.png",
                 "name": "BLUETOOTH_C",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_100.png",
+                "file": "images/bw_battery_d_100.png",
                 "name": "BATTERY_D_100",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_90.png",
+                "file": "images/bw_battery_d_90.png",
                 "name": "BATTERY_D_90",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_80.png",
+                "file": "images/bw_battery_d_80.png",
                 "name": "BATTERY_D_80",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_70.png",
+                "file": "images/bw_battery_d_70.png",
                 "name": "BATTERY_D_70",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_60.png",
+                "file": "images/bw_battery_d_60.png",
                 "name": "BATTERY_D_60",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_50.png",
+                "file": "images/bw_battery_d_50.png",
                 "name": "BATTERY_D_50",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_40.png",
+                "file": "images/bw_battery_d_40.png",
                 "name": "BATTERY_D_40",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_30.png",
+                "file": "images/bw_battery_d_30.png",
                 "name": "BATTERY_D_30",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_20.png",
+                "file": "images/bw_battery_d_20.png",
                 "name": "BATTERY_D_20",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_10.png",
+                "file": "images/bw_battery_d_10.png",
                 "name": "BATTERY_D_10",
                 "type": "png"
             },
             {
-                "file": "images/battery_d_0.png",
+                "file": "images/bw_battery_d_0.png",
                 "name": "BATTERY_D_0",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_100.png",
+                "name": "BATTERY_C_100",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_90.png",
+                "name": "BATTERY_C_90",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_80.png",
+                "name": "BATTERY_C_80",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_70.png",
+                "name": "BATTERY_C_70",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_60.png",
+                "name": "BATTERY_C_60",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_50.png",
+                "name": "BATTERY_C_50",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_40.png",
+                "name": "BATTERY_C_40",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_30.png",
+                "name": "BATTERY_C_30",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_20.png",
+                "name": "BATTERY_C_20",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_10.png",
+                "name": "BATTERY_C_10",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_0.png",
+                "name": "BATTERY_C_0",
                 "type": "png"
             },
             {
@@ -93,12 +153,6 @@
                 "type": "font"
             },
             {
-                "file": "images/vortex_icon.png",
-                "menuIcon": true,
-                "name": "MENU",
-                "type": "png"
-            },
-            {
                 "file": "data/vortex64.png",
                 "name": "ANIMATION",
                 "type": "raw"
@@ -108,10 +162,11 @@
     "sdkVersion": "3",
     "shortName": "Vortex",
     "targetPlatforms": [
+        "aplite",
         "basalt"
     ],
     "uuid": "68348e93-ee7c-4a1d-a6bd-1f83a44e981c",
-    "versionLabel": "1.2",
+    "versionLabel": "1.5",
     "watchapp": {
         "watchface": true
     }
