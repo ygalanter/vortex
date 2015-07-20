@@ -29,7 +29,7 @@ char buffer_dow[] = "   ";
 Layer *back_layer; // layer to hold time spheres as well as additional layers  
 
 // flags
-bool is_vortex_animating = false;
+bool is_vortex_animating = false, is_bluetooth_buzz_enabled = false;
 int flag_show_digital_time = 0, flag_show_bluetooth = 0, flag_show_battery = 0, flag_show_date = 0, flag_show_dow = 0, flag_show_seconds = 0, flag_disable_vortex_animation = 0;
 
 // bluetooth update
@@ -50,7 +50,7 @@ void bluetooth_handler(bool connected) {
   
   layer_mark_dirty(back_layer);
   
-  vibes_short_pulse();
+  if (is_bluetooth_buzz_enabled) vibes_short_pulse();
   
 }
 
@@ -92,7 +92,11 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context) {
         case KEY_SHOW_BLUETOOTH:
            persist_write_int(KEY_SHOW_BLUETOOTH, t->value->uint8);
            flag_show_bluetooth = t->value->uint8;
-           if (flag_show_bluetooth == 1) bluetooth_handler(bluetooth_connection_service_peek());
+           if (flag_show_bluetooth == 1) {
+             is_bluetooth_buzz_enabled = false;
+             bluetooth_handler(bluetooth_connection_service_peek());
+             is_bluetooth_buzz_enabled = true;
+           }
       break;
         case KEY_SHOW_DATE:
            persist_write_int(KEY_SHOW_DATE, t->value->uint8);
@@ -343,6 +347,8 @@ static void main_window_load(Window *window) {
   // prepping battery & bluetootj info
   battery_handler(battery_state_service_peek());
   bluetooth_handler(bluetooth_connection_service_peek());
+  
+  is_bluetooth_buzz_enabled = true; // enabling buzz on bluetooth connect/disconnect
   
   #ifdef PBL_COLOR
     // preparing vortex animation resources
