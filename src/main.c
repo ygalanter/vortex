@@ -11,7 +11,7 @@ static GBitmap *battery_sprite = NULL, *bluetooth_sprite = NULL;
 
 // for apng animation
 #ifdef PBL_COLOR
-  static GBitmapSequence *s_sequence = NULL;
+  static GBitmapSequence *s_sequence = NULL; // on Basalt use APNG sequence
 #endif    
 static BitmapLayer *s_bitmap_layer;
 static GBitmap *s_bitmap = NULL;
@@ -35,7 +35,7 @@ int flag_show_digital_time = 0, flag_show_bluetooth = 0, flag_show_battery = 0, 
 // bluetooth update
 void bluetooth_handler(bool connected) {
   
-  if (flag_show_bluetooth == 0) return;
+   if (flag_show_bluetooth == 0) return;  
   
    if (bluetooth_sprite != NULL) {
      gbitmap_destroy(bluetooth_sprite);
@@ -49,6 +49,8 @@ void bluetooth_handler(bool connected) {
   }
   
   layer_mark_dirty(back_layer);
+  
+  vibes_short_pulse();
   
 }
 
