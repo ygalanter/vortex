@@ -17,203 +17,13 @@
     "resources": {
         "media": [
             {
-                "file": "images/frame_037.png",
-                "name": "VORTEX_APLITE_37",
+                "file": "images/bw_battery_c_40.png",
+                "name": "BATTERY_C_40",
                 "type": "png"
             },
             {
-                "file": "data/dummy.png",
-                "name": "ANIMATION",
-                "type": "raw"
-            },
-            {
-                "file": "images/frame_036.png",
-                "name": "VORTEX_APLITE_36",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_035.png",
-                "name": "VORTEX_APLITE_35",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_034.png",
-                "name": "VORTEX_APLITE_34",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_033.png",
-                "name": "VORTEX_APLITE_33",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_032.png",
-                "name": "VORTEX_APLITE_32",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_031.png",
-                "name": "VORTEX_APLITE_31",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_030.png",
-                "name": "VORTEX_APLITE_30",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_029.png",
-                "name": "VORTEX_APLITE_29",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_028.png",
-                "name": "VORTEX_APLITE_28",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_027.png",
-                "name": "VORTEX_APLITE_27",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_026.png",
-                "name": "VORTEX_APLITE_26",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_025.png",
-                "name": "VORTEX_APLITE_25",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_024.png",
-                "name": "VORTEX_APLITE_24",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_023.png",
-                "name": "VORTEX_APLITE_23",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_022.png",
-                "name": "VORTEX_APLITE_22",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_021.png",
-                "name": "VORTEX_APLITE_21",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_020.png",
-                "name": "VORTEX_APLITE_20",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_019.png",
-                "name": "VORTEX_APLITE_19",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_018.png",
-                "name": "VORTEX_APLITE_18",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_017.png",
-                "name": "VORTEX_APLITE_17",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_016.png",
-                "name": "VORTEX_APLITE_16",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_015.png",
-                "name": "VORTEX_APLITE_15",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_014.png",
-                "name": "VORTEX_APLITE_14",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_013.png",
-                "name": "VORTEX_APLITE_13",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_012.png",
-                "name": "VORTEX_APLITE_12",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_011.png",
-                "name": "VORTEX_APLITE_11",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_010.png",
-                "name": "VORTEX_APLITE_10",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_009.png",
-                "name": "VORTEX_APLITE_9",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_008.png",
-                "name": "VORTEX_APLITE_8",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_007.png",
-                "name": "VORTEX_APLITE_7",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_006.png",
-                "name": "VORTEX_APLITE_6",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_005.png",
-                "name": "VORTEX_APLITE_5",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_004.png",
-                "name": "VORTEX_APLITE_4",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_003.png",
-                "name": "VORTEX_APLITE_3",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_002.png",
-                "name": "VORTEX_APLITE_2",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_001.png",
-                "name": "VORTEX_APLITE_1",
-                "type": "png"
-            },
-            {
-                "file": "images/frame_000.png",
-                "name": "VORTEX_APLITE_0",
-                "type": "png"
-            },
-            {
-                "file": "images/bw_vortex_icon.png",
-                "name": "MENU",
+                "file": "images/bw_battery_d_20.png",
+                "name": "BATTERY_D_20",
                 "type": "png"
             },
             {
@@ -222,8 +32,33 @@
                 "type": "png"
             },
             {
-                "file": "images/bw_bluetooth-24-connected.png",
-                "name": "BLUETOOTH_C",
+                "file": "images/frame_022.png",
+                "name": "VORTEX_APLITE_22",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_032.png",
+                "name": "VORTEX_APLITE_32",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_d_30.png",
+                "name": "BATTERY_D_30",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_70.png",
+                "name": "BATTERY_C_70",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_024.png",
+                "name": "VORTEX_APLITE_24",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_d_10.png",
+                "name": "BATTERY_D_10",
                 "type": "png"
             },
             {
@@ -232,8 +67,18 @@
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_d_90.png",
-                "name": "BATTERY_D_90",
+                "file": "images/frame_021.png",
+                "name": "VORTEX_APLITE_21",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_033.png",
+                "name": "VORTEX_APLITE_33",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_50.png",
+                "name": "BATTERY_C_50",
                 "type": "png"
             },
             {
@@ -242,8 +87,68 @@
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_d_70.png",
-                "name": "BATTERY_D_70",
+                "file": "images/frame_030.png",
+                "name": "VORTEX_APLITE_30",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_014.png",
+                "name": "VORTEX_APLITE_14",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_30.png",
+                "name": "BATTERY_C_30",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_009.png",
+                "name": "VORTEX_APLITE_9",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_90.png",
+                "name": "BATTERY_C_90",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_034.png",
+                "name": "VORTEX_APLITE_34",
+                "type": "png"
+            },
+            {
+                "file": "data/dummy.png",
+                "name": "ANIMATION",
+                "type": "raw"
+            },
+            {
+                "file": "images/frame_012.png",
+                "name": "VORTEX_APLITE_12",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_016.png",
+                "name": "VORTEX_APLITE_16",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_d_0.png",
+                "name": "BATTERY_D_0",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_0.png",
+                "name": "BATTERY_C_0",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_004.png",
+                "name": "VORTEX_APLITE_4",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_017.png",
+                "name": "VORTEX_APLITE_17",
                 "type": "png"
             },
             {
@@ -257,28 +162,28 @@
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_d_40.png",
-                "name": "BATTERY_D_40",
+                "file": "images/frame_005.png",
+                "name": "VORTEX_APLITE_5",
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_d_30.png",
-                "name": "BATTERY_D_30",
+                "file": "images/frame_035.png",
+                "name": "VORTEX_APLITE_35",
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_d_20.png",
-                "name": "BATTERY_D_20",
+                "file": "images/frame_010.png",
+                "name": "VORTEX_APLITE_10",
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_d_10.png",
-                "name": "BATTERY_D_10",
+                "file": "images/frame_011.png",
+                "name": "VORTEX_APLITE_11",
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_d_0.png",
-                "name": "BATTERY_D_0",
+                "file": "images/frame_000.png",
+                "name": "VORTEX_APLITE_0",
                 "type": "png"
             },
             {
@@ -287,8 +192,28 @@
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_c_90.png",
-                "name": "BATTERY_C_90",
+                "file": "images/frame_029.png",
+                "name": "VORTEX_APLITE_29",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_026.png",
+                "name": "VORTEX_APLITE_26",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_025.png",
+                "name": "VORTEX_APLITE_25",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_007.png",
+                "name": "VORTEX_APLITE_7",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_006.png",
+                "name": "VORTEX_APLITE_6",
                 "type": "png"
             },
             {
@@ -297,8 +222,43 @@
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_c_70.png",
-                "name": "BATTERY_C_70",
+                "file": "images/bw_battery_d_90.png",
+                "name": "BATTERY_D_90",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_d_40.png",
+                "name": "BATTERY_D_40",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_bluetooth-24-connected.png",
+                "name": "BLUETOOTH_C",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_002.png",
+                "name": "VORTEX_APLITE_2",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_013.png",
+                "name": "VORTEX_APLITE_13",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_018.png",
+                "name": "VORTEX_APLITE_18",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_028.png",
+                "name": "VORTEX_APLITE_28",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_020.png",
+                "name": "VORTEX_APLITE_20",
                 "type": "png"
             },
             {
@@ -307,18 +267,13 @@
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_c_50.png",
-                "name": "BATTERY_C_50",
+                "file": "images/frame_023.png",
+                "name": "VORTEX_APLITE_23",
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_c_40.png",
-                "name": "BATTERY_C_40",
-                "type": "png"
-            },
-            {
-                "file": "images/bw_battery_c_30.png",
-                "name": "BATTERY_C_30",
+                "file": "images/frame_003.png",
+                "name": "VORTEX_APLITE_3",
                 "type": "png"
             },
             {
@@ -327,13 +282,23 @@
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_c_10.png",
-                "name": "BATTERY_C_10",
+                "file": "images/bw_battery_d_70.png",
+                "name": "BATTERY_D_70",
                 "type": "png"
             },
             {
-                "file": "images/bw_battery_c_0.png",
-                "name": "BATTERY_C_0",
+                "file": "images/bw_vortex_icon.png",
+                "name": "MENU",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_027.png",
+                "name": "VORTEX_APLITE_27",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_031.png",
+                "name": "VORTEX_APLITE_31",
                 "type": "png"
             },
             {
@@ -346,6 +311,41 @@
                 "file": "fonts/MAKISUPA.TTF",
                 "name": "MAKISUPA_30",
                 "type": "font"
+            },
+            {
+                "file": "images/frame_001.png",
+                "name": "VORTEX_APLITE_1",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_015.png",
+                "name": "VORTEX_APLITE_15",
+                "type": "png"
+            },
+            {
+                "file": "images/bw_battery_c_10.png",
+                "name": "BATTERY_C_10",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_008.png",
+                "name": "VORTEX_APLITE_8",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_036.png",
+                "name": "VORTEX_APLITE_36",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_037.png",
+                "name": "VORTEX_APLITE_37",
+                "type": "png"
+            },
+            {
+                "file": "images/frame_019.png",
+                "name": "VORTEX_APLITE_19",
+                "type": "png"
             }
         ]
     },
@@ -356,7 +356,7 @@
         "basalt"
     ],
     "uuid": "68348e93-ee7c-4a1d-a6bd-1f83a44e981c",
-    "versionLabel": "1.8",
+    "versionLabel": "1.9",
     "watchapp": {
         "watchface": true
     }

@@ -87,3 +87,33 @@ RESOURCE_ID_VORTEX_APLITE_37
 #define KEY_SHOW_DOW 4
 #define KEY_SHOW_SECONDS 5
 #define KEY_DISABLE_VORTEX_ANIMATION 6
+  
+//bluetooth alert types  
+#define BLUETOOTH_ALERT_DISABLED 0  
+#define BLUETOOTH_ALERT_SILENT 1
+#define BLUETOOTH_ALERT_WEAK 2
+#define BLUETOOTH_ALERT_NORMAL 3
+#define BLUETOOTH_ALERT_STRONG 4
+#define BLUETOOTH_ALERT_DOUBLE 5
+
+  
+// bluetooth vibe patterns
+const VibePattern VIBE_PATTERN_WEAK = {
+	.durations = (uint32_t []) {100},
+	.num_segments = 1
+};
+
+const VibePattern VIBE_PATTERN_NORMAL = {
+	.durations = (uint32_t []) {300},
+	.num_segments = 1
+};
+
+const VibePattern VIBE_PATTERN_STRONG = {
+	.durations = (uint32_t []) {500},
+	.num_segments = 1
+};
+
+const VibePattern VIBE_PATTERN_DOUBLE = {
+	.durations = (uint32_t []) {500,100,500},
+	.num_segments = 3
+};

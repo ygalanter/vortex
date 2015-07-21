@@ -10,7 +10,7 @@ Pebble.addEventListener("showConfiguration",
   function(e) {
    
     //Load the remote config page
-    Pebble.openURL("http://codecorner.galanter.net/pebble/vortex/vortex_config.html");
+    Pebble.openURL("http://codecorner.galanter.net/pebble/vortex/vortex_config_2.html");
     
   }
 );

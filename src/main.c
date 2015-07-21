@@ -35,7 +35,7 @@ int flag_show_digital_time = 0, flag_show_bluetooth = 0, flag_show_battery = 0, 
 // bluetooth update
 void bluetooth_handler(bool connected) {
   
-   if (flag_show_bluetooth == 0) return;  
+   if (flag_show_bluetooth == BLUETOOTH_ALERT_DISABLED) return;  
   
    if (bluetooth_sprite != NULL) {
      gbitmap_destroy(bluetooth_sprite);
@@ -50,7 +50,23 @@ void bluetooth_handler(bool connected) {
   
   layer_mark_dirty(back_layer);
   
-  if (is_bluetooth_buzz_enabled) vibes_short_pulse();
+  // if this is initial load OR bluetooth alert is silent return without buzz
+  if (!is_bluetooth_buzz_enabled || flag_show_bluetooth == BLUETOOTH_ALERT_SILENT) return;
+    
+  switch (flag_show_bluetooth){
+    case BLUETOOTH_ALERT_WEAK:
+      vibes_enqueue_custom_pattern(VIBE_PATTERN_WEAK);
+      break;
+    case BLUETOOTH_ALERT_NORMAL:
+      vibes_enqueue_custom_pattern(VIBE_PATTERN_NORMAL);
+      break;
+    case BLUETOOTH_ALERT_STRONG:
+    vibes_enqueue_custom_pattern(VIBE_PATTERN_STRONG);
+      break;
+    case BLUETOOTH_ALERT_DOUBLE:
+      vibes_enqueue_custom_pattern(VIBE_PATTERN_DOUBLE);
+      break;    
+  }
   
 }
 
@@ -92,7 +108,7 @@ static void in_recv_handler(DictionaryIterator *iterator, void *context) {
         case KEY_SHOW_BLUETOOTH:
            persist_write_int(KEY_SHOW_BLUETOOTH, t->value->uint8);
            flag_show_bluetooth = t->value->uint8;
-           if (flag_show_bluetooth == 1) {
+           if (flag_show_bluetooth != BLUETOOTH_ALERT_DISABLED) {
              is_bluetooth_buzz_enabled = false;
              bluetooth_handler(bluetooth_connection_service_peek());
              is_bluetooth_buzz_enabled = true;
@@ -215,7 +231,7 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   }  
   
   // ******************************** displaying bluetooth info
-  if (flag_show_bluetooth == 1) {
+  if (flag_show_bluetooth != BLUETOOTH_ALERT_DISABLED) {
     if (bluetooth_sprite != NULL) graphics_draw_bitmap_in_rect(ctx, bluetooth_sprite, GRect(3, 3, 18, 24));
   }  
   
@@ -243,7 +259,7 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   uint32_t next_delay;
 
   // Advance to the next APNG frame (using frame counter, because this APNG is looped)
-  if(frame_no <= NO_OF_FRAMES) {
+  if(frame_no < NO_OF_FRAMES) {
     gbitmap_sequence_update_bitmap_next_frame(s_sequence, s_bitmap, &next_delay);
     bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap);
     layer_mark_dirty(bitmap_layer_get_layer(s_bitmap_layer));
@@ -259,11 +275,18 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
 }
 
 // initiating APNG animation sequence
-static void load_sequence() {
+static void load_sequence(int init_frame) { // passing starting animation frame
   // Begin animation
   layer_set_hidden(back_layer, true); // hiding additional info for duration of animation
   is_vortex_animating = true;
-  frame_no = 1;
+  frame_no = init_frame; // setting initial animation frame
+  
+  if (init_frame > 0){ // if animation is not starting from the beginning - jump to specific frame
+    for (int i=0; i<init_frame; i++) {
+       gbitmap_sequence_update_bitmap_next_frame(s_sequence, s_bitmap, NULL);
+    }
+  }
+  
   app_timer_register(1, timer_handler, NULL);
 }
 
@@ -291,17 +314,16 @@ static void timer_handler(void *context) {
   } else {
     layer_set_hidden(back_layer, false); // when animation sequence ends - restore visibility of the info layer
     is_vortex_animating = false;
-    frame_no = 0;
   }
 }
 
 // initiating APNG animation sequence
-static void load_sequence() {
+static void load_sequence(int init_frame) { // passing starting animation frame
    
   // Begin animation
   layer_set_hidden(back_layer, true); // hiding additional info for duration of animation
   is_vortex_animating = true;
-  frame_no = 0;
+  frame_no = init_frame; // setting initial animation frame
   app_timer_register(1, timer_handler, NULL);
 }
 
@@ -314,7 +336,7 @@ static void time_timer_tick(struct tm *tick_time, TimeUnits units_changed) {
   if (units_changed & MINUTE_UNIT) {  // if minute changed - display animation
     
     if (flag_disable_vortex_animation == 0) { // if enabled - load animation
-      load_sequence();  
+      load_sequence(0);  // on minute change begin animation from 0 frame
     } else {
       layer_mark_dirty(back_layer); // otherwise update time layer
     }
@@ -356,7 +378,8 @@ static void main_window_load(Window *window) {
     s_bitmap = gbitmap_create_blank(gbitmap_sequence_get_bitmap_size(s_sequence), GBitmapFormat8Bit);
   #endif     
   
-  load_sequence();  //showing initial animation
+  // if vortex animation enabled - start it from initial frame, otherwise jump directly to last frame to display circle  
+  load_sequence(flag_disable_vortex_animation == 0? 0 : 37);  
 
 
 }
