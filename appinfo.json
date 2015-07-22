@@ -17,6 +17,11 @@
     "resources": {
         "media": [
             {
+                "file": "data/vortex_basalt_dummy.png",
+                "name": "ANIMATION",
+                "type": "raw"
+            },
+            {
                 "file": "images/bw_battery_c_40.png",
                 "name": "BATTERY_C_40",
                 "type": "png"
@@ -115,11 +120,6 @@
                 "file": "images/frame_034.png",
                 "name": "VORTEX_APLITE_34",
                 "type": "png"
-            },
-            {
-                "file": "data/dummy.png",
-                "name": "ANIMATION",
-                "type": "raw"
             },
             {
                 "file": "images/frame_012.png",
@@ -288,6 +288,7 @@
             },
             {
                 "file": "images/bw_vortex_icon.png",
+                "menuIcon": true,
                 "name": "MENU",
                 "type": "png"
             },
@@ -356,7 +357,7 @@
         "basalt"
     ],
     "uuid": "68348e93-ee7c-4a1d-a6bd-1f83a44e981c",
-    "versionLabel": "1.9",
+    "versionLabel": "2.0",
     "watchapp": {
         "watchface": true
     }

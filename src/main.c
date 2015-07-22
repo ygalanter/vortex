@@ -333,7 +333,7 @@ static void load_sequence(int init_frame) { // passing starting animation frame
 // on timer tick initiate animation sequence
 static void time_timer_tick(struct tm *tick_time, TimeUnits units_changed) {
   
-  if (units_changed & MINUTE_UNIT) {  // if minute changed - display animation
+  if (units_changed & MINUTE_UNIT && !is_vortex_animating) {  // if minute changed - display animation (only if it's not already animating due to initial load)
     
     if (flag_disable_vortex_animation == 0) { // if enabled - load animation
       load_sequence(0);  // on minute change begin animation from 0 frame
