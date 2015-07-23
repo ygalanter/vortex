@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Vortex config</title>
+    <script type="text/javascript" src="slate.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="slate.min.css" />
+
+
+    <script type="text/javascript">
+
+        var settings;
+
+        // to get value of query string
+        function getURLVariable(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)",
+                regex = new RegExp(regexS),
+                results = regex.exec(window.location.href);
+            if (results == null) return "";
+            else return results[1];
+        }
+
+        $(document).ready(function () {
+
+            // loading settings
+            try {
+               settings = JSON.parse(localStorage.getItem("vortex_settings"));
+            }
+            catch(err) {
+               setttings = null;
+            }
+
+            if (settings == null) {
+                settings = {
+                    showDigitalTime: 0,
+                    showBluetooth: 0,
+                    showBattery: 0,
+                    showDate: 0,
+                    showDow: 0,
+                    showSeconds: 0,
+                    disableVortexAnimation: 0
+                };
+            }
+
+            // setting checkboxes' values
+            if (settings.showDigitalTime == 1) $('#showDigitalTime').attr('checked', 'checked');
+            if (settings.showBattery == 1) $('#showBattery').attr('checked', 'checked');
+            if (settings.showDate == 1) $('#showDate').attr('checked', 'checked');
+            if (settings.showDow == 1) $('#showDow').attr('checked', 'checked');
+            if (settings.showSeconds == 1) $('#showSeconds').attr('checked', 'checked');
+            if (settings.disableVortexAnimation == 1) $('#disableVortexAnimation').attr('checked', 'checked');
+
+            // setting slider value
+            $('#showBluetooth').val(settings.showBluetooth);
+            setSliderText(settings.showBluetooth);
+
+            //assigning save button
+            
+            $('#xbtnSave').click(function () {
+
+                localStorage.setItem("vortex_settings", JSON.stringify(settings));
+        
+                var location = (decodeURIComponent(getURLVariable('return_to')) || "pebblejs://close#") + encodeURIComponent(JSON.stringify(settings));
+                document.location = location;
+
+            })
+
+            //assigning cancel button
+            $('#xbtnCancel').click(function () {
+
+                var location = decodeURIComponent(getURLVariable('return_to')) || "pebblejs://close#";
+                document.location = location;
+
+            })
+
+            //assigning checkboxes
+            $("input[type=checkbox]").change(function () {
+                settings[this.id] = this.checked ? 1 : 0;
+            });
+
+
+            //setting value of slider text
+            function setSliderText(slider_value) {
+                switch (slider_value) {
+                    case 0:
+                        $('#labelBT').html('Disabled').css('color', 'grey');
+                        break;
+                    case 1:
+                        $('#labelBT').html('Silent').css('color', '#ff4700');
+                        break;
+                    case 2:
+                        $('#labelBT').html('Weak').css({ 'color': '#ff4700', 'font-weight': 400 });
+                        break;
+                    case 3:
+                        $('#labelBT').html('Normal').css({ 'color': '#ff4700', 'font-weight': 500});
+                        break;
+                    case 4:
+                        $('#labelBT').html('Strong').css({ 'color': '#ff4700', 'font-weight': 600 });
+                        break;
+                    case 5:
+                        $('#labelBT').html('Double').css({ 'color': '#ff4700', 'font-weight': 700 });
+                        break;
+                }
+
+            }
+
+            //setting value of slider
+            $('#showBluetooth').change(function (e) {
+                e.preventDefault();
+                var intVal = parseInt(this.value);
+                settings[this.id] = intVal;
+                setSliderText(intVal);
+            })
+        }
+     )
+        
+    </script>
+
+    
+
+
+</head>
+<body>
+
+    <div class="item-container">
+        <div class="item-container-header">Vortex Watchface Options</div>
+        <div class="item-container-content">
+            <label class="item">
+                 Bluetooth Alert: <span id="labelBT">Disabled</span><br /><br />
+                <input type="range" class="item-slider" name="showBluetooth" id="showBluetooth" value="0" min="0" max="5">
+            </label>   
+            <label class="item">
+                Show Digital Time
+                <input type="checkbox" class="item-toggle" name="key_show_digital_time" id="showDigitalTime">
+            </label>
+            <label class="item">
+                Show Battery Indicator
+                <input type="checkbox" class="item-toggle" name="key_show_battery" id="showBattery">
+            </label>
+            <label class="item">
+                Show Date
+                <input type="checkbox" class="item-toggle" name="key_show_date" id="showDate">
+            </label>
+            <label class="item">
+                Show Day of the Week
+                <input type="checkbox" class="item-toggle" name="key_show_dow" id="showDow">
+            </label>
+            <label class="item">
+                Show Seconds
+                <input type="checkbox" class="item-toggle" name="key_show_seconds" id="showSeconds">
+            </label>
+            <label class="item">
+                Disable Vortex Animation
+                <input type="checkbox" class="item-toggle" name="key_disable_vortex_animation" id="disableVortexAnimation">
+            </label>
+
+        </div>
+    </div>
+
+    <div class="item-container">
+        <div class="button-container">
+            <input type="button" class="item-button" value="SAVE" id="xbtnSave">
+        </div>
+    </div>
+
+    <div class="item-container">
+        <div class="button-container">
+            <input type="button" class="item-button" value="CANCEL" id="xbtnCancel">
+        </div>
+    </div>
+
+        <div class="item-container">
+            <div class="button-container">
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="2J4R2PMZAAQWQ">
+                    <input type="submit" value="My Starbucks fund" class="item-button" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="position:absolute">
+                </form>
+            </div>
+        </div>
+
+    <div class="item-container">
+        <div class="item-container-content">
+            <div class="item" style="font-size:small; line-height:130%">
+                If you like this watchface and would like to see it further developed as well as other wonderful Pebble apps and faces created, please know - I run on coffee. It's an essential fuel for inspiration and creativity. So if you click the Fund button above (or the ad below) - I won't run out of fuel :) Thanks!
+            </div>
+        </div>
+
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Pebble Config -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8184318363505287"
+             data-ad-slot="7086382952"
+             data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
+
+</body>
+</html>
