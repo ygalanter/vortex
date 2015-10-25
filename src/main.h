@@ -30,8 +30,6 @@ const int battery_c_res[] = {
   RESOURCE_ID_BATTERY_C_100,
 };
 
-#ifndef PBL_COLOR
-
 // images used for Aplite sequence animation
 const int vortex_aplite_res[] = {  
 
@@ -75,8 +73,6 @@ RESOURCE_ID_VORTEX_APLITE_36,
 RESOURCE_ID_VORTEX_APLITE_37
 
 };
-
-#endif
 
 
 // flags

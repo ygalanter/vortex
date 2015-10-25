@@ -1,21 +1,16 @@
 #include <pebble.h>
 #include "main.h"  
 
-
 static Window *s_main_window;
 
 // for battery & bt
 static GBitmap *battery_sprite = NULL, *bluetooth_sprite = NULL;
-
-
-
-// for apng animation
-#ifdef PBL_COLOR
-  static GBitmapSequence *s_sequence = NULL; // on Basalt use APNG sequence
-#endif    
 static BitmapLayer *s_bitmap_layer;
 static GBitmap *s_bitmap = NULL;
-int frame_no;    
+
+// for animation
+int frame_no;   
+int next_delay = 70; // delay between frames in ms
 #define NO_OF_FRAMES 38   
     
 // time and date holders
@@ -166,10 +161,11 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   
   int currY;
   int currX;
+  int radius = PBL_IF_ROUND_ELSE(76, 53);
   
   // hour
-  currY = -53 * cos_lookup(hour_angle) / TRIG_MAX_RATIO + center.y;
-  currX = 53 * sin_lookup(hour_angle) / TRIG_MAX_RATIO + center.x;
+  currY = -radius * cos_lookup(hour_angle) / TRIG_MAX_RATIO + center.y;
+  currX = radius * sin_lookup(hour_angle) / TRIG_MAX_RATIO + center.x;
   
   #ifdef PBL_COLOR
     graphics_context_set_fill_color(ctx, GColorPurple); graphics_fill_circle(ctx, GPoint(currX, currY), 11);
@@ -179,8 +175,8 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   #endif
   
   // minute
-  currY = -53 * cos_lookup(minute_angle) / TRIG_MAX_RATIO + center.y;
-  currX = 53 * sin_lookup(minute_angle) / TRIG_MAX_RATIO + center.x;
+  currY = -radius * cos_lookup(minute_angle) / TRIG_MAX_RATIO + center.y;
+  currX = radius * sin_lookup(minute_angle) / TRIG_MAX_RATIO + center.x;
   #ifdef PBL_COLOR
     graphics_context_set_fill_color(ctx, GColorCyan); graphics_fill_circle(ctx, GPoint(currX, currY), 8);
   #else
@@ -190,13 +186,9 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   
   // second
   if (flag_show_seconds == 1) {
-    currY = -53 * cos_lookup(second_angle) / TRIG_MAX_RATIO + center.y;
-    currX = 53 * sin_lookup(second_angle) / TRIG_MAX_RATIO + center.x;
-    #ifdef PBL_COLOR
-      graphics_context_set_fill_color(ctx, GColorWhite); graphics_fill_circle(ctx, GPoint(currX, currY), 5);
-    #else
-      graphics_context_set_fill_color(ctx, GColorWhite); graphics_fill_circle(ctx, GPoint(currX, currY), 5);
-    #endif
+    currY = -radius * cos_lookup(second_angle) / TRIG_MAX_RATIO + center.y;
+    currX = radius * sin_lookup(second_angle) / TRIG_MAX_RATIO + center.x;
+    graphics_context_set_fill_color(ctx, GColorWhite); graphics_fill_circle(ctx, GPoint(currX, currY), 5);
   }  
   
   
@@ -208,31 +200,31 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
       graphics_context_set_text_color(ctx, GColorWhite);
     #endif
     
-     if (!clock_is_24h_style()) {
+     if (!clock_is_24h_style()) { 
     
         if(t->tm_hour > 11 ) {   // YG Jun-25-2014: 0..11 - am 12..23 - pm
             if(t->tm_hour > 12 ) t->tm_hour -= 12;
-            graphics_draw_text(ctx, "pm", makisupa_big, GRect(33, 91, 85, 40), GTextOverflowModeWordWrap, GTextAlignmentCenter,  NULL);
+            graphics_draw_text(ctx, "pm", makisupa_big, PBL_IF_RECT_ELSE(GRect(33, 91, 85, 40), GRect(50, 98, 85, 40)), GTextOverflowModeWordWrap, GTextAlignmentCenter,  NULL);
         } else {
             if(t->tm_hour == 0 ) t->tm_hour = 12;
-            graphics_draw_text(ctx, "am", makisupa_big, GRect(33, 91, 85, 40), GTextOverflowModeWordWrap, GTextAlignmentCenter,  NULL);
+            graphics_draw_text(ctx, "am", makisupa_big, PBL_IF_RECT_ELSE(GRect(33, 91, 85, 40), GRect(50, 98, 85, 40)), GTextOverflowModeWordWrap, GTextAlignmentCenter,  NULL);
         }        
     }
    
     // time
     strftime(s_time, sizeof(s_time), "%H:%M", t);
-    graphics_draw_text(ctx, s_time, makisupa_big, GRect(30, 67, 85, 40), GTextOverflowModeWordWrap, GTextAlignmentCenter,  NULL);
+    graphics_draw_text(ctx, s_time, makisupa_big, PBL_IF_RECT_ELSE(GRect(30, 67, 85, 40), GRect(27, 64, 125, 40)), GTextOverflowModeWordWrap, GTextAlignmentCenter,  NULL);
   }  
   
   
   // ******************************** displaying battery info
   if (flag_show_battery == 1) {
-    if (battery_sprite != NULL) graphics_draw_bitmap_in_rect(ctx, battery_sprite, GRect(113, 5, 29, 18));
+    if (battery_sprite != NULL) graphics_draw_bitmap_in_rect(ctx, battery_sprite, PBL_IF_RECT_ELSE(GRect(113, 5, 29, 18), GRect(117, 113, 29, 18)));
   }  
   
   // ******************************** displaying bluetooth info
   if (flag_show_bluetooth != BLUETOOTH_ALERT_DISABLED) {
-    if (bluetooth_sprite != NULL) graphics_draw_bitmap_in_rect(ctx, bluetooth_sprite, GRect(3, 3, 18, 24));
+    if (bluetooth_sprite != NULL) graphics_draw_bitmap_in_rect(ctx, bluetooth_sprite,  PBL_IF_RECT_ELSE(GRect(3, 3, 18, 24),GRect(38, 113, 24, 18)));
   }  
   
   
@@ -242,59 +234,20 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   //date
   if (flag_show_date == 1) {
     strftime(buffer_date, sizeof("SEP 31"), "%b %d", t);
-    graphics_draw_text(ctx, buffer_date, makisupa_small, GRect(72, 148, 69, 20), GTextOverflowModeWordWrap, GTextAlignmentRight,  NULL);
+    graphics_draw_text(ctx, buffer_date, makisupa_small, PBL_IF_RECT_ELSE(GRect(72, 148, 69, 20), GRect(72, 48, 69, 20)), GTextOverflowModeWordWrap, GTextAlignmentRight,  NULL);
   }  
   
   //dow
   if (flag_show_dow == 1) {
     strftime(buffer_dow, sizeof("SAT"), "%a", t);
-    graphics_draw_text(ctx, buffer_dow, makisupa_small, GRect(3, 148, 50, 20), GTextOverflowModeWordWrap, GTextAlignmentLeft,  NULL);
+    graphics_draw_text(ctx, buffer_dow, makisupa_small, PBL_IF_RECT_ELSE(GRect(3, 148, 50, 20),GRect(41, 48, 50, 20)), GTextOverflowModeWordWrap, GTextAlignmentLeft,  NULL);
   }
 }
 
 // **************** function to handle animation timer (On Basalt)
-#ifdef PBL_COLOR
 
-  static void timer_handler(void *context) {
-  uint32_t next_delay;
-
-  // Advance to the next APNG frame (using frame counter, because this APNG is looped)
-  if(frame_no < NO_OF_FRAMES) {
-    gbitmap_sequence_update_bitmap_next_frame(s_sequence, s_bitmap, &next_delay);
-    bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap);
-    layer_mark_dirty(bitmap_layer_get_layer(s_bitmap_layer));
-
-    // Timer for that delay
-    frame_no++;
-    app_timer_register(next_delay, timer_handler, NULL);
-  } else {
-    layer_set_hidden(back_layer, false); // when animation sequence ends - restore visibility of the info layer
-    is_vortex_animating = false;
-    gbitmap_sequence_restart(s_sequence); // on next run sequence will start from the beginning
-  }
-}
-
-// initiating APNG animation sequence
-static void load_sequence(int init_frame) { // passing starting animation frame
-  // Begin animation
-  layer_set_hidden(back_layer, true); // hiding additional info for duration of animation
-  is_vortex_animating = true;
-  frame_no = init_frame; // setting initial animation frame
-  
-  if (init_frame > 0){ // if animation is not starting from the beginning - jump to specific frame
-    for (int i=0; i<init_frame; i++) {
-       gbitmap_sequence_update_bitmap_next_frame(s_sequence, s_bitmap, NULL);
-    }
-  }
-  
-  app_timer_register(1, timer_handler, NULL);
-}
-
-// **************** function to handle animation timer (On Basalt)
-#else
-  
 static void timer_handler(void *context) {
-  uint32_t next_delay = 80;   
+    
   // Advance to the next frame in array
   if(frame_no < NO_OF_FRAMES) {
     
@@ -327,8 +280,6 @@ static void load_sequence(int init_frame) { // passing starting animation frame
   app_timer_register(1, timer_handler, NULL);
 }
 
-#endif
-
 
 // on timer tick initiate animation sequence
 static void time_timer_tick(struct tm *tick_time, TimeUnits units_changed) {
@@ -352,31 +303,31 @@ static void time_timer_tick(struct tm *tick_time, TimeUnits units_changed) {
 
 static void main_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
+  GRect bounds = layer_get_bounds(window_layer);
 
-  s_bitmap_layer = bitmap_layer_create(GRect(11, 23, 123, 123));
+  #ifndef PBL_ROUND
+    s_bitmap_layer = bitmap_layer_create(GRect(11, 23, 123, 123));
+  #else
+    s_bitmap_layer = bitmap_layer_create(GRect(0, 0, 180, 180));
+  #endif
+                                         
   layer_add_child(window_layer, bitmap_layer_get_layer(s_bitmap_layer));
   
   // init hands
-  back_layer = layer_create(GRect(0, 0, 144, 168));
+  back_layer = layer_create(bounds);
   layer_set_hidden(back_layer, true); // initialy hide it - it will appear after initial animation
   layer_set_update_proc(back_layer, back_update_proc);
   layer_add_child(window_layer, back_layer);
   
   //loading fonts
-  makisupa_big = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_MAKISUPA_30));
+  makisupa_big = fonts_load_custom_font(resource_get_handle(PBL_IF_RECT_ELSE(RESOURCE_ID_MAKISUPA_30, RESOURCE_ID_MAKISUPA_40)));
   makisupa_small  = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_MAKISUPA_18));
   
-  // prepping battery & bluetootj info
+  // prepping battery & bluetooth info
   battery_handler(battery_state_service_peek());
   bluetooth_handler(bluetooth_connection_service_peek());
   
   is_bluetooth_buzz_enabled = true; // enabling buzz on bluetooth connect/disconnect
-  
-  #ifdef PBL_COLOR
-    // preparing vortex animation resources
-    s_sequence = gbitmap_sequence_create_with_resource(RESOURCE_ID_ANIMATION);
-    s_bitmap = gbitmap_create_blank(gbitmap_sequence_get_bitmap_size(s_sequence), GBitmapFormat8Bit);
-  #endif     
   
   // if vortex animation enabled - start it from initial frame, otherwise jump directly to last frame to display circle  
   load_sequence(flag_disable_vortex_animation == 0? 0 : 37);  
@@ -386,14 +337,6 @@ static void main_window_load(Window *window) {
 
 
 static void main_window_unload(Window *window) {
-  
-  // destroying vortex animation resources
-  #ifdef PBL_COLOR
-    if(s_sequence) {
-      gbitmap_sequence_destroy(s_sequence);
-      s_sequence = NULL;
-    }
- #endif
   
  if(s_bitmap) {
    gbitmap_destroy(s_bitmap);
@@ -448,7 +391,7 @@ static void init() {
   
   // subscribing to JS messages
   app_message_register_inbox_received(in_recv_handler);
-  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
+  app_message_open(APP_MESSAGE_INBOX_SIZE_MINIMUM, APP_MESSAGE_OUTBOX_SIZE_MINIMUM);
   
 }
 
