@@ -244,8 +244,7 @@ static void back_update_proc(Layer *layer, GContext *ctx) {
   }
 }
 
-// **************** function to handle animation timer (On Basalt)
-
+// function to handle animation timer
 static void timer_handler(void *context) {
     
   // Advance to the next frame in array
@@ -261,7 +260,6 @@ static void timer_handler(void *context) {
     bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap);
     layer_mark_dirty(bitmap_layer_get_layer(s_bitmap_layer));
 
-    // Timer for that delay
     frame_no++;
     app_timer_register(next_delay, timer_handler, NULL);
   } else {
@@ -270,14 +268,12 @@ static void timer_handler(void *context) {
   }
 }
 
-// initiating APNG animation sequence
+// initiating animation sequence
 static void load_sequence(int init_frame) { // passing starting animation frame
-   
-  // Begin animation
   layer_set_hidden(back_layer, true); // hiding additional info for duration of animation
   is_vortex_animating = true;
   frame_no = init_frame; // setting initial animation frame
-  app_timer_register(1, timer_handler, NULL);
+  app_timer_register(1, timer_handler, NULL); // Begin animation
 }
 
 
